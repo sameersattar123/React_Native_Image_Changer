@@ -1,11 +1,48 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import DiceOne from "./assets/One.png"
+import DiceTwo from "./assets/Two.png"
+import DiceThree from "./assets/Three.png"
+import DiceFour from "./assets/Four.png"
+import DiceFive from "./assets/Five.png"
+import DiceSix from "./assets/Six.png"
+import { Image } from 'react-native';
+import { Pressable } from 'react-native';
+import { useState } from 'react';
 
 export default function App() {
+
+  const Dice = ({imgUrl}) => {
+    return(
+      <View>
+          <Image style={styles.diceImage} source={imgUrl}/>
+        </View>
+      )
+    }
+
+    const [DiceImage, setDiceImage] = useState(DiceOne)    
+    
+    const RollTheDice = () =>{
+      const number = Math.floor(Math.random() * 6) + 1
+      if (number === 1) {
+        setDiceImage(DiceOne)
+      } else if  (number === 2) {
+        setDiceImage(DiceTwo)
+      } else if (number === 3){
+        setDiceImage(DiceThree)
+      } else if(number === 4){
+        setDiceImage(DiceFour)
+      } else if(number === 5){
+        setDiceImage(DiceFive)
+      } else if(number === 6){
+        setDiceImage(DiceSix)
+      }
+    }
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Dice imgUrl={DiceImage}/>
+      <Pressable onPress={RollTheDice}>
+        <Text style={styles.rollDiceBtnText}>Roll The Dice</Text>
+      </Pressable>
     </View>
   );
 }
